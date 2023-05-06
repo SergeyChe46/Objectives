@@ -44,7 +44,7 @@ namespace Objectives.Controllers
         /// <param name="id">Id задачи.</param>
         /// <returns></returns>
         [HttpGet("{action}/{id:int}")]
-        public async Task<IActionResult> GetObjective(Guid id)
+        public async Task<IActionResult> GetObjective(int id)
         {
             var objective = await _objectivesRepository.GetObjectiveAsync(id);
             return objective != null ? Ok(objective) : NoContent();
@@ -98,14 +98,10 @@ namespace Objectives.Controllers
         /// <param name="id">Id исполнителя.</param>
         /// <returns></returns>
         [HttpGet("{action}/{id:int}")]
-        public async Task<ActionResult<List<Objective>>> GetObjectivesByPerformer(Guid id)
+        public async Task<ActionResult<List<Objective>>> GetObjectivesByPerformer(int id)
         {
-            if (Guid.Empty != id)
-            {
-                var objectives = await _objectivesRepository.GetObjectivesByPerformerAsync(id);
-                return Ok(objectives);
-            }
-            return BadRequest();
+            var objectives = await _objectivesRepository.GetObjectivesByPerformerAsync(id);
+            return Ok(objectives);
         }
 
         /// <summary>
@@ -117,6 +113,19 @@ namespace Objectives.Controllers
         public async Task<IActionResult> UpdateObjective(Objective objective)
         {
             await _objectivesRepository.UpdateObjectiveAsync(objective);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Устанавливает исполнителя.
+        /// </summary>
+        /// <param name="objectiveId"></param>
+        /// <param name="performerId"></param>
+        /// <returns></returns>
+        [HttpPatch]
+        public async Task<IActionResult> StartObjective(int objectiveId, int performerId)
+        {
+            await _objectivesRepository.StartObjectiveAsync(objectiveId, performerId);
             return Ok();
         }
     }

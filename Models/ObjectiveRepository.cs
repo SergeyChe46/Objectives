@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Objectives.Repositories;
+using System.Collections.Generic;
 
 namespace Objectives.Models
 {
@@ -24,7 +25,7 @@ namespace Objectives.Models
         /// </summary>
         /// <param name="id">Id задачи.</param>
         /// <returns></returns>
-        public async Task<Objective?> GetObjectiveAsync(Guid id)
+        public async Task<Objective?> GetObjectiveAsync(int id)
         {
             var objective = await _context.Objectives.FirstOrDefaultAsync(obj => obj.ObjectiveId == id);
             return objective;
@@ -64,11 +65,11 @@ namespace Objectives.Models
         /// </summary>
         /// <param name="id">Id исполнителя.</param>
         /// <returns></returns>
-        public async Task<List<Objective>> GetObjectivesByPerformerAsync(Guid id)
+        public async Task<List<Objective>> GetObjectivesByPerformerAsync(int id)
         {
             var objectives = await _context.Objectives
                 .AsQueryable()
-                .Where(obj => obj.PerformerId == id)
+                .Where(obj => obj.PerformersId!.Contains(id))
                 .ToListAsync();
             return objectives;
         }
@@ -93,6 +94,22 @@ namespace Objectives.Models
         {
             _context.Objectives.Update(objective);
             await _context.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Назанчает исполнителя для задачи.
+        /// </summary>
+        /// <param name="objectiveId">Id задачи.</param>
+        /// <param name="performerId">Id исполнителя.</param>
+        /// <returns></returns>
+        public async Task StartObjectiveAsync(int objectiveId, int performerId)
+        {
+            var obj = await GetObjectiveAsync(objectiveId);
+            if (obj != null)
+            {
+                obj.PerformersId!.Add(performerId);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
