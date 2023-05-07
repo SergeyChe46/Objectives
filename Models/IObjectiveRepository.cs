@@ -6,7 +6,7 @@
         Task<Objective?> GetObjectiveAsync(int id);
         Task<List<Objective>> GetObjectivesAsync(string title);
         Task<List<Objective>> GetObjectivesAsync();
-        Task<List<Objective>> GetObjectivesAsync(Priority priority);
+        Task<List<Objective>> GetObjectivesByPriorityAsync(string priority);
         Task<List<Objective>> GetObjectivesByPerformerAsync(int id);
         Task UpdateObjectiveAsync(Objective objective);
         Task StartObjectiveAsync(int objectiveId, int performerId);

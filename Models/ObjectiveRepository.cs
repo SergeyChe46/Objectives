@@ -51,7 +51,7 @@ namespace Objectives.Models
         /// </summary>
         /// <param name="priority">Приоритет.</param>
         /// <returns></returns>
-        public async Task<List<Objective>> GetObjectivesAsync(Priority priority)
+        public async Task<List<Objective>> GetObjectivesByPriorityAsync(string priority)
         {
             var objectives = await _context.Objectives
                 .AsQueryable()

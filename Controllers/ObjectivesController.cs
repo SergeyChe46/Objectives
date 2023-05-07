@@ -55,7 +55,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="title">Заголовок</param>
         /// <returns></returns>
-        [HttpGet("{action}/{title:string}")]
+        [HttpGet("{action}/{title:alpha}")]
         public async Task<ActionResult<List<Objective>>> GetObjectives(string title)
         {
             if(title != null)
@@ -81,10 +81,10 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="priority">Приоритет.</param>
         /// <returns></returns>
-        [HttpGet("{action}/{priority:string}")]
-        public async Task<ActionResult<List<Objective>>> GetObjectives(Priority priority)
+        [HttpGet("{action}/{priority:alpha}")]
+        public async Task<ActionResult<List<Objective>>> GetObjectivesByPriority(string priority)
         {
-            if(Enum.IsDefined(typeof(Priority), priority))
+            if(priority.Trim().ToLower() != "" || priority != null)
             {
                 var objectives = await _objectivesRepository.GetObjectivesAsync(priority);
                 return Ok(objectives);
