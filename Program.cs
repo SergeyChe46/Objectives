@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Objectives.Models;
 using Objectives.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(cfg =>
     cfg.UseNpgsql(builder.Configuration.GetConnectionString("Default"))
 );
+
+builder.Services.AddTransient<IObjectiveRepository, ObjectiveRepository>();
+builder.Services.AddTransient<IPerformerRepository, PerformerRepository>();
 
 var app = builder.Build();
 

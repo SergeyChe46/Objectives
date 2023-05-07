@@ -43,7 +43,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="id">Id задачи.</param>
         /// <returns></returns>
-        [HttpGet("{action}/{id:int}")]
+        [HttpGet("objective/{id:int}")]
         public async Task<IActionResult> GetObjective(int id)
         {
             var objective = await _objectivesRepository.GetObjectiveAsync(id);
@@ -55,7 +55,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="title">Заголовок</param>
         /// <returns></returns>
-        [HttpGet("{action}/{title:alpha}")]
+        [HttpGet("title/{title:alpha}")]
         public async Task<ActionResult<List<Objective>>> GetObjectives(string title)
         {
             if(title != null)
@@ -70,7 +70,7 @@ namespace Objectives.Controllers
         /// Возвращает все задачи.
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<ActionResult<List<Objective>>> GetObjectives()
         {
             return await _objectivesRepository.GetObjectivesAsync();
@@ -81,7 +81,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="priority">Приоритет.</param>
         /// <returns></returns>
-        [HttpGet("{action}/{priority:alpha}")]
+        [HttpGet("{priority:alpha}")]
         public async Task<ActionResult<List<Objective>>> GetObjectivesByPriority(string priority)
         {
             if(priority.Trim().ToLower() != "" || priority != null)
@@ -97,7 +97,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="id">Id исполнителя.</param>
         /// <returns></returns>
-        [HttpGet("{action}/{id:int}")]
+        [HttpGet("performer/{id:int}")]
         public async Task<ActionResult<List<Objective>>> GetObjectivesByPerformer(int id)
         {
             var objectives = await _objectivesRepository.GetObjectivesByPerformerAsync(id);
@@ -109,7 +109,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="objective">Новая информация.</param>
         /// <returns></returns>
-        [HttpPut("{action}")]
+        [HttpPut]
         public async Task<IActionResult> UpdateObjective(Objective objective)
         {
             await _objectivesRepository.UpdateObjectiveAsync(objective);

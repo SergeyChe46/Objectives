@@ -18,7 +18,7 @@ namespace Objectives.Controllers
         /// Возвращает всех исполнителей.
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<ActionResult<List<Performer>>> GetAll()
         {
             var performers = await _performerRepository.GetAllPerformers();
@@ -29,7 +29,7 @@ namespace Objectives.Controllers
         /// Возвращает свободных исполнителей.
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("free")]
         public async Task<ActionResult<List<Performer>>> GetFreePerformers()
         {
             var performers = await _performerRepository.GetFreePerformers();

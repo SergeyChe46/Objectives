@@ -11,6 +11,6 @@ namespace Objectives.Models
         public string Email { get; set; }
         public string? Name { get; set; }
         public int? ObjectiveId { get; set; }
-        public ICollection<Objective>? Objectives { get; set; }
+        public List<Objective>? Objectives { get; set; }
     }
 }

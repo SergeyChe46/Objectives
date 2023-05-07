@@ -14,6 +14,6 @@ namespace Objectives.Models
         public string Description { get; set; }
         [Required]
         public string Priority { get; set; }
-        public ICollection<int>? PerformersId { get; set; }
+        public List<int>? PerformersId { get; set; }
     }
 }
