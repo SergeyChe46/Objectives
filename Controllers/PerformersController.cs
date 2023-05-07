@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NLog;
 using Objectives.Models;
 using Objectives.Models.ViewModels;
 
@@ -8,10 +9,12 @@ namespace Objectives.Controllers
     [ApiController]
     public class PerformersController : ControllerBase
     {
+        private readonly NLog.ILogger _logger;
         private readonly IPerformerRepository _performerRepository;
         public PerformersController(IPerformerRepository performerRepository)
         {
             _performerRepository = performerRepository;
+            _logger = LogManager.GetCurrentClassLogger();
         }
 
         /// <summary>

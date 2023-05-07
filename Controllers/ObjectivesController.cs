@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 using Objectives.Models;
 using Objectives.Models.ViewModels;
 using System;
@@ -10,10 +11,12 @@ namespace Objectives.Controllers
     [ApiController]
     public class ObjectivesController : ControllerBase
     {
+        private readonly NLog.ILogger logger;
         private IObjectiveRepository _objectivesRepository;
         public ObjectivesController(IObjectiveRepository objectiveRepository)
         {
             _objectivesRepository = objectiveRepository;
+            this.logger = LogManager.GetCurrentClassLogger();
         }
 
         /// <summary>
@@ -35,6 +38,7 @@ namespace Objectives.Controllers
                 await _objectivesRepository.CreateObjectiveAsync(objective);
                 return Ok(objective); 
             }
+            logger.Trace($"Wrong objective - {newObjective}");
             return NoContent();
         }
 
@@ -89,6 +93,7 @@ namespace Objectives.Controllers
                 var objectives = await _objectivesRepository.GetObjectivesAsync(priority);
                 return Ok(objectives);
             }
+            logger.Trace($"Wrong priority - {priority}");
             return BadRequest(priority);
         }
 
