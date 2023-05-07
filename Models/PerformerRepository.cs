@@ -11,6 +11,12 @@ namespace Objectives.Models
             _context = context;
         }
 
+        public async Task CreatePerformerAsync(Performer performer)
+        {
+            await _context.Performers.AddAsync(performer);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<List<Performer>> GetAllPerformers()
         {
             return await _context.Performers.ToListAsync();

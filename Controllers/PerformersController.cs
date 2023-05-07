@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Objectives.Models;
+using Objectives.Models.ViewModels;
 
 namespace Objectives.Controllers
 {
@@ -18,7 +18,7 @@ namespace Objectives.Controllers
         /// Возвращает всех исполнителей.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("all")]
+        [HttpGet("allPerfs")]
         public async Task<ActionResult<List<Performer>>> GetAll()
         {
             var performers = await _performerRepository.GetAllPerformers();
@@ -29,12 +29,27 @@ namespace Objectives.Controllers
         /// Возвращает свободных исполнителей.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("free")]
+        [HttpGet("freePerfs")]
         public async Task<ActionResult<List<Performer>>> GetFreePerformers()
         {
             var performers = await _performerRepository.GetFreePerformers();
             return Ok(performers);
         }
 
+        [HttpPost("createPerfs")]
+        public async Task<ActionResult<Performer>> Create(PerformerViewModel performer)
+        {
+            if (performer != null)
+            {
+                var newPerformer = new Performer
+                {
+                    Name = performer.Name,
+                    Email = performer.Email
+                };
+                await _performerRepository.CreatePerformerAsync(newPerformer);
+                return Ok(newPerformer);
+            }
+            return NoContent();
+        }
     }
 }

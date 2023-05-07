@@ -21,7 +21,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="newObjective">Новая задача.</param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("createObjective")]
         public async Task<IActionResult> Create(ObjectiveViewModel newObjective)
         {
             if (newObjective != null)
@@ -55,7 +55,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="title">Заголовок</param>
         /// <returns></returns>
-        [HttpGet("title/{title:alpha}")]
+        [HttpGet("{title:alpha}")]
         public async Task<ActionResult<List<Objective>>> GetObjectives(string title)
         {
             if(title != null)
@@ -97,7 +97,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="id">Id исполнителя.</param>
         /// <returns></returns>
-        [HttpGet("performer/{id:int}")]
+        [HttpGet("performerObjectives/{id:int}")]
         public async Task<ActionResult<List<Objective>>> GetObjectivesByPerformer(int id)
         {
             var objectives = await _objectivesRepository.GetObjectivesByPerformerAsync(id);
@@ -109,7 +109,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="objective">Новая информация.</param>
         /// <returns></returns>
-        [HttpPut]
+        [HttpPut("update")]
         public async Task<IActionResult> UpdateObjective(Objective objective)
         {
             await _objectivesRepository.UpdateObjectiveAsync(objective);
@@ -119,10 +119,10 @@ namespace Objectives.Controllers
         /// <summary>
         /// Устанавливает исполнителя.
         /// </summary>
-        /// <param name="objectiveId"></param>
-        /// <param name="performerId"></param>
+        /// <param name="objectiveId">Id задачи.</param>
+        /// <param name="performerId">Id исполнителя.</param>
         /// <returns></returns>
-        [HttpPatch]
+        [HttpPatch("take")]
         public async Task<IActionResult> StartObjective(int objectiveId, int performerId)
         {
             await _objectivesRepository.StartObjectiveAsync(objectiveId, performerId);
