@@ -1,0 +1,19 @@
+<div>{{pageTitle}}</div>
+<div *ngIf="objectives.length">
+    <tr>
+        <th>Obj title</th>
+        <th>Obj description</th>
+        <th>Obj stars</th>
+    </tr>
+    <tbody>
+        <tr *ngFor="let obj of filteredObjs">
+            <td>{{obj.title}}</td>
+            <td>{{obj.description}}</td>
+            <td>
+                <obj-star [rating]="obj.stars"
+                (ratingClicked)="onNotify($event)"></obj-star>
+            </td>
+        </tr>
+    </tbody>
+    <input type="text" placeholder="Objective" [(ngModel)]="filter">
+</div>

@@ -21,60 +21,6 @@ namespace Objectives.Models
         }
 
         /// <summary>
-        /// Возвращает задачу по её Id.
-        /// </summary>
-        /// <param name="id">Id задачи.</param>
-        /// <returns></returns>
-        public async Task<Objective?> GetObjectiveAsync(int id)
-        {
-            var objective = await _context.Objectives.FirstOrDefaultAsync(obj => obj.ObjectiveId == id);
-            return objective;
-        }
-
-        /// <summary>
-        /// Возвращает все заадчи по заголовку.
-        /// </summary>
-        /// <param name="title">Заголовок задачи.</param>
-        /// <returns></returns>
-        public async Task<List<Objective>> GetObjectivesAsync(string title)
-        {
-            var objective = await _context.Objectives
-                .AsQueryable()
-                .Where(obj =>
-                obj.Title.ToLower().Trim() == title.ToLower().Trim())
-                .ToListAsync();
-            return objective;
-        }
-
-        /// <summary>
-        /// Возвращает задачи с приориретом priority.
-        /// </summary>
-        /// <param name="priority">Приоритет.</param>
-        /// <returns></returns>
-        public async Task<List<Objective>> GetObjectivesByPriorityAsync(string priority)
-        {
-            var objectives = await _context.Objectives
-                .AsQueryable()
-                .Where(obj => obj.Priority == priority)
-                .ToListAsync();
-            return objectives;
-        }
-
-        /// <summary>
-        /// Возвращает задачи определённого исполнителя.
-        /// </summary>
-        /// <param name="id">Id исполнителя.</param>
-        /// <returns></returns>
-        public async Task<List<Objective>> GetObjectivesByPerformerAsync(int id)
-        {
-            var objectives = await _context.Objectives
-                .AsQueryable()
-                .Where(obj => obj.PerformersId!.Contains(id))
-                .ToListAsync();
-            return objectives;
-        }
-
-        /// <summary>
         /// Создаёт задачу.
         /// </summary>
         /// <param name="objective">Новая задача.</param>
@@ -110,6 +56,16 @@ namespace Objectives.Models
                 obj.PerformersId!.Add(performerId);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        /// <summary>
+        /// Возвращает задачу по Id.
+        /// </summary>
+        /// <param name="objectiveId"></param>
+        /// <returns></returns>
+        public async Task<Objective?> GetObjectiveAsync(int objectiveId)
+        {
+            return await _context.Objectives.FindAsync(objectiveId);
         }
     }
 }

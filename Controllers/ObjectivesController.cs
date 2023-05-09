@@ -55,22 +55,6 @@ namespace Objectives.Controllers
         }
 
         /// <summary>
-        /// Возвращает задачи с заданным заголовком.
-        /// </summary>
-        /// <param name="title">Заголовок</param>
-        /// <returns></returns>
-        [HttpGet("{title:alpha}")]
-        public async Task<ActionResult<List<Objective>>> GetObjectives(string title)
-        {
-            if(title != null)
-            {
-                var objectives = await _objectivesRepository.GetObjectivesAsync(title);
-                return objectives != null ? Ok(objectives) : NoContent();
-            }
-            return BadRequest();
-        }
-
-        /// <summary>
         /// Возвращает все задачи.
         /// </summary>
         /// <returns></returns>
@@ -78,35 +62,6 @@ namespace Objectives.Controllers
         public async Task<ActionResult<List<Objective>>> GetObjectives()
         {
             return await _objectivesRepository.GetObjectivesAsync();
-        }
-
-        /// <summary>
-        /// Возвращает задачи с заданным приоритетом.
-        /// </summary>
-        /// <param name="priority">Приоритет.</param>
-        /// <returns></returns>
-        [HttpGet("{priority:alpha}")]
-        public async Task<ActionResult<List<Objective>>> GetObjectivesByPriority(string priority)
-        {
-            if(priority.Trim().ToLower() != "" || priority != null)
-            {
-                var objectives = await _objectivesRepository.GetObjectivesAsync(priority);
-                return Ok(objectives);
-            }
-            logger.Trace($"Wrong priority - {priority}");
-            return BadRequest(priority);
-        }
-
-        /// <summary>
-        /// Возвращает все задачи исполнителя.
-        /// </summary>
-        /// <param name="id">Id исполнителя.</param>
-        /// <returns></returns>
-        [HttpGet("performerObjectives/{id:int}")]
-        public async Task<ActionResult<List<Objective>>> GetObjectivesByPerformer(int id)
-        {
-            var objectives = await _objectivesRepository.GetObjectivesByPerformerAsync(id);
-            return Ok(objectives);
         }
 
         /// <summary>

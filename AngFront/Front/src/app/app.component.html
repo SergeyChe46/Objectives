@@ -1,0 +1,5 @@
+<h1>{{pageTitle | lowercase | convertToSpace: '-'}}</h1>
+<h2>{{secondLine | convertToSpace: '-'}}</h2>
+<button (click)="changeLine()">Click</button>
+<pm-app-objective-list></pm-app-objective-list>
+<router-outlet></router-outlet>
