@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+AngFront/Objective/.angular
+AngFront/Objective/.vscode
+AngFront/Objective/node_modules
