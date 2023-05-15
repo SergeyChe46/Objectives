@@ -365,3 +365,5 @@ FodyWeavers.xsd
 AngFront/Objective/.angular
 AngFront/Objective/.vscode
 AngFront/Objective/node_modules
+
+appsettings.json
