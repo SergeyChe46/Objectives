@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Objectives.Models.ViewModels;
 using Objectives.Repositories;
 using System.Collections.Generic;
 
@@ -7,17 +8,32 @@ namespace Objectives.Models
     public class ObjectiveRepository : IObjectiveRepository
     {
         private readonly ApplicationDbContext _context;
+
         public ObjectiveRepository(ApplicationDbContext context)
         {
             _context = context;
         }
+
         /// <summary>
         /// Возвращает все доступные задачи.
         /// </summary>
         /// <returns></returns>
         public async Task<List<Objective>> GetObjectivesAsync()
         {
-            return await _context.Objectives.ToListAsync();
+            return await _context.Objectives
+                .Include(p => p.Performers)
+                .Select(
+                    o =>
+                        new Objective
+                        {
+                            ObjectiveId = o.ObjectiveId,
+                            Title = o.Title,
+                            Description = o.Description,
+                            Priority = o.Priority,
+                            Performers = o.Performers.ToList()
+                        }
+                )
+                .ToListAsync();
         }
 
         /// <summary>
@@ -50,10 +66,17 @@ namespace Objectives.Models
         /// <returns></returns>
         public async Task StartObjectiveAsync(int objectiveId, int performerId)
         {
-            var obj = await GetObjectiveAsync(objectiveId);
-            if (obj != null)
+            var obj = await _context.Objectives
+                .Include(p => p.Performers)
+                .FirstOrDefaultAsync(o => o.ObjectiveId == objectiveId);
+
+            var perf = await _context.Performers.FirstOrDefaultAsync(
+                p => p.PerformerId == performerId
+            );
+
+            if (obj != null && perf != null)
             {
-                obj.PerformersId!.Add(performerId);
+                obj.Performers!.Add(perf);
                 await _context.SaveChangesAsync();
             }
         }

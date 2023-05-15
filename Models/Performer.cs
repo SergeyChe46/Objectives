@@ -6,11 +6,11 @@ namespace Objectives.Models
     {
         [Key]
         public int PerformerId { get; set; }
+
         [EmailAddress]
         [Required]
         public string Email { get; set; }
         public string? Name { get; set; }
-        public int? ObjectiveId { get; set; }
-        public List<Objective>? Objectives { get; set; }
+        public virtual List<Objective>? Objectives { get; set; }
     }
 }

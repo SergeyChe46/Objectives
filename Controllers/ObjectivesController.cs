@@ -4,6 +4,8 @@ using NLog;
 using Objectives.Models;
 using Objectives.Models.ViewModels;
 using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Objectives.Controllers
 {
@@ -13,6 +15,7 @@ namespace Objectives.Controllers
     {
         private readonly NLog.ILogger logger;
         private IObjectiveRepository _objectivesRepository;
+
         public ObjectivesController(IObjectiveRepository objectiveRepository)
         {
             _objectivesRepository = objectiveRepository;
@@ -36,7 +39,7 @@ namespace Objectives.Controllers
                     Priority = newObjective.Priority
                 };
                 await _objectivesRepository.CreateObjectiveAsync(objective);
-                return Ok(objective); 
+                return Ok(objective);
             }
             logger.Trace($"Wrong objective - {newObjective}");
             return NoContent();
