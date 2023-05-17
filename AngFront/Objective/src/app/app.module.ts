@@ -6,17 +6,20 @@ import { AppComponent } from './app.component';
 import { ObjectivesListComponent } from './objectives/objectives-list/objectives-list.component';
 import { ObjectiveDetailComponent } from './objectives/objective-detail/objective-detail.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { CreateObjectiveComponent } from './objectives/create-objective/create-objective.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
     ObjectivesListComponent,
     ObjectiveDetailComponent,
+    CreateObjectiveComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
