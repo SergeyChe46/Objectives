@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ObjectivesListComponent } from './objectives/objectives-list/objectives-list.component';
 import { ObjectiveDetailComponent } from './objectives/objective-detail/objective-detail.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ObjectiveDetailComponent } from './objectives/objective-detail/objectiv
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

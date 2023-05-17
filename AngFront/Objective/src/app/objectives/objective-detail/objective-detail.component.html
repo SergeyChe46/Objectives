@@ -1,10 +1,28 @@
-<div class="card text-center">
-    <div class="card-header">
-      Title
+<div class="container">
+  <div class="card text-center" *ngIf="currentObjective; else elseBlock">
+      <div class="card-header">
+        {{currentObjective.title}}
+      </div>
+      
+      <div class="card-body">
+        <h5 class="card-title">{{currentObjective.title}}</h5>
+        <p class="card-text">{{currentObjective.description}}</p>
+        <span *ngFor="let performer of currentObjective.performers">{{performer.name}} </span>
+        <div>
+          <a href="#" class="btn btn-primary">Приступить</a>
+        </div>
+      </div>
+  </div>
+  <ng-template #elseBlock>
+    <div class="card text-center">
+      <div class="card-header">
+        Выбери задачу
+      </div>
+      
+      <div class="card-body">
+        <h5 class="card-title">Заголовок задачи</h5>
+        <p class="card-text">Описание задачи</p>
+      </div>
     </div>
-    <div class="card-body">
-      <h5 class="card-title">Title</h5>
-      <p class="card-text">Description</p>
-      <a href="#" class="btn btn-primary">Приступить</a>
-    </div>
+  </ng-template>
 </div>

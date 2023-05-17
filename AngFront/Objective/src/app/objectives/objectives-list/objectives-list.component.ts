@@ -1,21 +1,26 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ObjectiveService } from '../objective-service.service';
-import { Objective } from '../objective';
+import { Objective } from '../objective.interface';
 
 @Component({
   selector: 'app-objectives-list',
-  templateUrl: './objectives-list.component.html',
-  styleUrls: ['./objectives-list.component.css']
+  templateUrl: './objectives-list.component.html'
 })
-export class ObjectivesListComponent {
+export class ObjectivesListComponent implements OnInit {
   constructor(private objService: ObjectiveService){}
 
-  @Input() currentObjective: Objective | undefined;
-  @Output() objEmitter = new EventEmitter<Objective>();
-
-  sendToDetailComponent(obj: Objective): void {
-    this.currentObjective = obj;
-    this.objEmitter.emit(this.currentObjective);
+  objectives: Objective[] = [];
+  thisObjective: Objective | undefined;
+  ngOnInit(){
+    this.loadObjectives();
   }
-  objectives: Objective[] = this.objService.getObjectives;
+
+  loadObjectives(){
+    this.objService.getObjectives()
+      .subscribe(data => this.objectives = data);
+  }
+
+  sendSelectedObjective(selectedObj: Objective): void {
+    this.thisObjective = selectedObj;
+  }
 }

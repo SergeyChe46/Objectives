@@ -3,23 +3,19 @@
       <tr>
         <th scope="col">Title</th>
         <th scope="col">Desription</th>
+        <th scope="col">Priority</th>
         <th scope="col">Coworkers</th>
       </tr>
     </thead>
     <tbody *ngFor='let obj of objectives'>
-      <tr>
-        <td><a [routerLink]="['detail', obj.id]" (onClick)="sendToDetailComponent(obj)">{{obj.title}}</a></td>
+      <tr (click)="sendSelectedObjective(obj)">
+        <td>{{obj.title}}</td>
         <td>{{obj.description}}</td>
-        <td *ngIf="obj.coworkers !== undefined; else elseBlock" >
-            {{obj.coworkers}}
-            <button type="button" class="btn btn-warning col-6">Join</button>
+        <td>{{obj.priority}}</td>
+        <td *ngFor="let perf of obj.performers">
+          <span>{{perf.name}}</span>  
         </td>
-        <ng-template #elseBlock>
-            no one yet
-            <span>
-                <button type="button" class="btn btn-success col-6">Be First!!!</button>
-            </span>
-        </ng-template>
       </tr>
     </tbody>
 </table>
+<app-objective-detail [currentObjective]="thisObjective"></app-objective-detail>

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ObjectiveDetailComponent } from './objectives/objective-detail/objective-detail.component';
 
 const routes: Routes = [
-  { path: 'detail/:id', component: ObjectiveDetailComponent }
+  //{ path: 'detail/:id', component: ObjectiveDetailComponent }
 ];
 
 @NgModule({

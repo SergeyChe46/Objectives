@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Objectives.Models;
 using Objectives.Repositories;
@@ -22,7 +23,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddTransient<IObjectiveRepository, ObjectiveRepository>();
 builder.Services.AddTransient<IPerformerRepository, PerformerRepository>();
 
+builder.Services.AddCors(c =>
+{
+    c.AddPolicy(
+        "AllowOrigin",
+        options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+    );
+});
+
 var app = builder.Build();
+
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
