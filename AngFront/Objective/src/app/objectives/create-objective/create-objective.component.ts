@@ -8,28 +8,34 @@ import { Objective } from '../objective.interface';
   templateUrl: './create-objective.component.html',
 })
 export class CreateObjectiveComponent {
-  objectiveForm: FormGroup;
   constructor(private _objService: ObjectiveService){
     this.objectiveForm = new FormGroup({               
-      'title': new FormControl('', [Validators.required, Validators.minLength(5)]),
-      'description': new FormControl('', [Validators.required, Validators.minLength(5)]),
-      'priority': new FormArray([
-        new FormControl('Low'),
-        new FormControl('Medium'),
-        new FormControl('High'),
-      ], Validators.required) 
-  });
+      title: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      description: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      priority: new FormControl(null)
+    });
+    // Устанавливает выбранный из дропдауна приоритет. 
+    this.objectiveForm.controls['priority'].setValue(this.selectedPrior, {onlySelf: true});
   }
-
-  getPriorities(): FormArray{
-    return this.objectiveForm.controls['priority'] as FormArray;
-  }
-
+  // Форма создания задач.
+  objectiveForm: FormGroup;
+  // Доступные варианты приоритета задач.
+  priorities: string[] = ['Low', 'Medium', 'High'];
+  // Выбранный приоритет задачи.
+  selectedPrior: string = this.priorities[0];  
+/**
+ * Проверяет длину заголовка и описания.
+ * @returns Корректность введённых данных.
+ */
   checkForm(): boolean{
     return this.objectiveForm.valid;
   }
 
-  postObjective(newObjective: Objective) {
+/**
+ * Создаёт новую задачу.
+ * @param newObjective Значения задачи из формы.
+ */
+  postObjective(newObjective: Objective): void {
     this._objService.postObjective(newObjective)
       .subscribe(res => alert(res.description));
     console.log(newObjective);

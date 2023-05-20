@@ -1,5 +1,6 @@
 <div class="container">
     <form [formGroup]="objectiveForm" class='form row' (ngSubmit)="postObjective(objectiveForm.value)">
+        <!-- Устанавливает заголовок. -->
         <div class="form-group col-6">
           <label>Title</label>
           <input type='text' class="form-control" name='title' formControlName='title' placeholder="Заголовок задачи">
@@ -7,13 +8,17 @@
                 *ngIf="objectiveForm.controls['title'].invalid && objectiveForm.controls['title'].touched">
                 Обязательно для заполнения
           </div>
-        <div formArrayName='priority'>
-            <label>Priority</label>
-            <select class="form-control" name="priority">
-                <option *ngFor="let prior of getPriorities()['controls']" [ngValue]='prior.value.toString()'>{{prior.value}}</option>
-            </select>
+          <!-- Дропдаун с приоритетами задачи. -->
+          <div class="form-group">
+              <label>Priority</label>
+                  <select class="form-control" formControlName='priority'>
+                      <option *ngFor="let prior of priorities">
+                          {{prior}}
+                      </option>
+                  </select>
+          </div>
         </div>
-        </div>
+        <!-- Описание задачи. -->
         <div class="form-group col-6">
           <label>Description</label>
           <textarea class="form-control" name='description' formControlName='description' placeholder="Описание задачи" rows="4"></textarea>
