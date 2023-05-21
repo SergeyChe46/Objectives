@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="card text-center" *ngIf="currentPerformer; else elseBlock">
+        <div class="card-header">
+          {{currentPerformer.name}}
+        </div>
+        
+        <div class="card-body">
+          <h5 class="card-title">{{currentPerformer.name}}</h5>
+          <p class="card-text">{{currentPerformer.email}}</p>
+          <span *ngFor="let obj of currentPerformer.objectives">{{obj.title}} </span>
+          <!-- <div>
+            <a href="#" class="btn btn-primary">Приступить</a>
+          </div> -->
+        </div>
+    </div>
+    <ng-template #elseBlock>
+      <div class="card text-center">
+        <div class="card-header">
+          Выбери исполнителя
+        </div>
+        
+        <div class="card-body">
+          <h5 class="card-title">Имя исполнителя</h5>
+          <p class="card-text">Почта исполнителя</p>
+        </div>
+      </div>
+    </ng-template>
+  </div>

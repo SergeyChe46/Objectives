@@ -21,7 +21,6 @@ export class ObjectiveService {
   }
 
   postObjective(newObjective: Objective): Observable<Objective> {
-    //const body = {title: newObjective.title, desciption: newObjective.description, priority: newObjective.priority};
     return this._httpService.post<Objective>(this.accessPointUrl + 'createObjective', newObjective);
   }
 }

@@ -1,22 +1,24 @@
-<table class="table" *ngIf='objectives'>
-    <thead>
-      <tr>
-        <th scope="col">Title</th>
-        <th scope="col">Desription</th>
-        <th scope="col">Priority</th>
-        <th scope="col">Coworkers</th>
-      </tr>
-    </thead>
-    <tbody *ngFor='let obj of objectives'>
-      <tr (click)="sendSelectedObjective(obj)">
-        <td>{{obj.title}}</td>
-        <td>{{obj.description}}</td>
-        <td>{{obj.priority}}</td>
-        <td *ngFor="let perf of obj.performers">
-          <span>{{perf.name}}</span>  
-        </td>
-      </tr>
-    </tbody>
-</table>
-<app-create-objective></app-create-objective>
-<app-objective-detail [currentObjective]="thisObjective"></app-objective-detail>
+<div class="container">
+  <table class="table" *ngIf='objectives'>
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Desription</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Coworkers</th>
+        </tr>
+      </thead>
+      <tbody *ngFor='let obj of objectives'>
+        <tr (click)="sendSelectedObjective(obj)">
+          <td>{{obj.title}}</td>
+          <td>{{obj.description}}</td>
+          <td>{{obj.priority}}</td>
+          <td *ngFor="let perf of obj.performers">
+            <span>{{perf.name}}</span>  
+          </td>
+        </tr>
+      </tbody>
+  </table>
+  <app-create-objective></app-create-objective>
+  <app-objective-detail [currentObjective]="thisObjective"></app-objective-detail>
+</div>

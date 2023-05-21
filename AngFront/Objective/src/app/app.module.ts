@@ -8,12 +8,16 @@ import { ObjectiveDetailComponent } from './objectives/objective-detail/objectiv
 import { HttpClientModule } from '@angular/common/http';
 import { CreateObjectiveComponent } from './objectives/create-objective/create-objective.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PerformersListComponent } from './performers/performers-list/performers-list.component';
+import { PerformersDetailComponent } from './performers/performers-detail/performers-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
     ObjectivesListComponent,
     ObjectiveDetailComponent,
     CreateObjectiveComponent,
+    PerformersListComponent,
+    PerformersDetailComponent,
   ],
   imports: [
     BrowserModule,

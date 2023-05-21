@@ -30,7 +30,7 @@ namespace Objectives.Models
                             Title = o.Title,
                             Description = o.Description,
                             Priority = o.Priority,
-                            Performers = o.Performers.ToList()
+                            Performers = o.Performers!.ToList()
                         }
                 )
                 .ToListAsync();

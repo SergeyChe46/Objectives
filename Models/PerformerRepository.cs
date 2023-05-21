@@ -6,6 +6,7 @@ namespace Objectives.Models
     public class PerformerRepository : IPerformerRepository
     {
         private readonly ApplicationDbContext _context;
+
         public PerformerRepository(ApplicationDbContext context)
         {
             _context = context;
@@ -19,7 +20,19 @@ namespace Objectives.Models
 
         public async Task<List<Performer>> GetAllPerformers()
         {
-            return await _context.Performers.ToListAsync();
+            return await _context.Performers
+                .Include(p => p.Objectives)
+                .Select(
+                    obj =>
+                        new Performer
+                        {
+                            PerformerId = obj.PerformerId,
+                            Email = obj.Email,
+                            Name = obj.Name,
+                            Objectives = obj.Objectives!.ToList()
+                        }
+                )
+                .ToListAsync();
         }
 
         public async Task<List<Performer>> GetFreePerformers()
