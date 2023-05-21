@@ -10,6 +10,7 @@ import { CreateObjectiveComponent } from './objectives/create-objective/create-o
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerformersListComponent } from './performers/performers-list/performers-list.component';
 import { PerformersDetailComponent } from './performers/performers-detail/performers-detail.component';
+import { PerformerCardComponent } from './performers/performer-card/performer-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +19,7 @@ import { PerformersDetailComponent } from './performers/performers-detail/perfor
     CreateObjectiveComponent,
     PerformersListComponent,
     PerformersDetailComponent,
+    PerformerCardComponent,
   ],
   imports: [
     BrowserModule,

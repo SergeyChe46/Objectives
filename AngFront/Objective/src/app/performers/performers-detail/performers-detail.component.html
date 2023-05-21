@@ -5,12 +5,13 @@
         </div>
         
         <div class="card-body">
-          <h5 class="card-title">{{currentPerformer.name}}</h5>
+          <h5 class="card-title">
+            <a routerLink='/performers/{{currentPerformer.email}}'>
+              {{currentPerformer.name}}
+            </a>
+          </h5>
           <p class="card-text">{{currentPerformer.email}}</p>
-          <span *ngFor="let obj of currentPerformer.objectives">{{obj.title}} </span>
-          <!-- <div>
-            <a href="#" class="btn btn-primary">Приступить</a>
-          </div> -->
+          <span *ngFor="let obj of currentPerformer.objectives">{{obj.title}}</span>
         </div>
     </div>
     <ng-template #elseBlock>
@@ -25,4 +26,5 @@
         </div>
       </div>
     </ng-template>
+    <router-outlet></router-outlet>
   </div>

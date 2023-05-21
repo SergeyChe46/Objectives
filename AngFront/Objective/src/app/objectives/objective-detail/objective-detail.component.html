@@ -7,7 +7,11 @@
       <div class="card-body">
         <h5 class="card-title">{{currentObjective.title}}</h5>
         <p class="card-text">{{currentObjective.description}}</p>
-        <span *ngFor="let performer of currentObjective.performers">{{performer.name}} </span>
+        <span *ngFor="let performer of currentObjective.performers">
+          <a routerLink='/performers/{{performer.email}}'>
+            {{performer.name}}
+          </a>
+         </span>
         <div>
           <a href="#" class="btn btn-primary">Приступить</a>
         </div>
