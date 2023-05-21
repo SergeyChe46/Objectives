@@ -8,7 +8,7 @@ import { Performers } from '../objectives/performers.interface';
 })
 export class PerformersService {
 
-  private accessUrl = 'http://localhost:5292/api/Performers/';
+  private accessUrl = 'http://localhost:5292/api/Performers';
 
   constructor(private http: HttpClient) { }
   /**
@@ -16,7 +16,7 @@ export class PerformersService {
    * @returns Все исполнители.
    */
   getPerformers(): Observable<Performers[]>{
-    return this.http.get<Performers[]>(this.accessUrl + 'allPerfs');
+    return this.http.get<Performers[]>(this.accessUrl + '/allPerfs');
   }
   /**
    * Возвращает исполнителя с заданным Id. 

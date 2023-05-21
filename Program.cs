@@ -1,6 +1,9 @@
+using System.Text;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Objectives.Models;
 using Objectives.Repositories;
 
@@ -20,6 +23,29 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     cfg => cfg.UseNpgsql(builder.Configuration.GetConnectionString("Default"))
 );
 
+var jwtSettings = builder.Configuration.GetSection("JWTSettings");
+builder.Services
+    .AddAuthentication(opt =>
+    {
+        opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings["validIssuer"],
+            ValidAudience = jwtSettings["validAudience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtSettings.GetSection("securityKey").Value)
+            )
+        };
+    });
+
 builder.Services.AddTransient<IObjectiveRepository, ObjectiveRepository>();
 builder.Services.AddTransient<IPerformerRepository, PerformerRepository>();
 
@@ -32,6 +58,9 @@ builder.Services.AddCors(c =>
 });
 
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 

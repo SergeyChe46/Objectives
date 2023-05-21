@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NLog;
 using Objectives.Models;
 using Objectives.Models.ViewModels;
-using System;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace Objectives.Controllers
 {

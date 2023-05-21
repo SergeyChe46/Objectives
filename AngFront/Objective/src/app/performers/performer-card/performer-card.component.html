@@ -1,1 +1,15 @@
-<p>{{performer}}</p>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+          {{performer?.name}}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{performer?.name}}</h5>
+          <p *ngFor="let obj of performer?.objectives">
+            <span>{{obj.title}}</span>
+          </p>
+          <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+</div>

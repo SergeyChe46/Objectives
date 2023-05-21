@@ -53,6 +53,17 @@ namespace Objectives.Models
         {
             return await _context.Performers
                 .AsQueryable()
+                .Include(p => p.Objectives)
+                .Select(
+                    p =>
+                        new Performer
+                        {
+                            PerformerId = p.PerformerId,
+                            Email = p.Email,
+                            Name = p.Name,
+                            Objectives = p.Objectives!.ToList()
+                        }
+                )
                 .FirstOrDefaultAsync(perf => perf.Email == email);
         }
 

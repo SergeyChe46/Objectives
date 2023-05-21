@@ -62,7 +62,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="email">Адрес исполнителя.</param>
         /// <returns></returns>
-        [HttpGet("{email}")]
+        [HttpGet("{email:regex(^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{{2,4}$)}}")]
         public async Task<ActionResult<Performer?>> GetPerformer(string email)
         {
             var currentPerformer = await _performerRepository.GetPerformer(email);
