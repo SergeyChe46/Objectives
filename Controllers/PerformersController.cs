@@ -11,6 +11,7 @@ namespace Objectives.Controllers
     {
         private readonly NLog.ILogger _logger;
         private readonly IPerformerRepository _performerRepository;
+
         public PerformersController(IPerformerRepository performerRepository)
         {
             _performerRepository = performerRepository;
@@ -39,20 +40,33 @@ namespace Objectives.Controllers
             return Ok(performers);
         }
 
+        /// <summary>
+        /// Создаёт нового исполнителя.
+        /// </summary>
+        /// <param name="performer">Данные нового исполнителя.</param>
+        /// <returns></returns>
         [HttpPost("createPerfs")]
         public async Task<ActionResult<Performer>> Create(PerformerViewModel performer)
         {
             if (performer != null)
             {
-                var newPerformer = new Performer
-                {
-                    Name = performer.Name,
-                    Email = performer.Email
-                };
+                var newPerformer = new Performer { Name = performer.Name, Email = performer.Email };
                 await _performerRepository.CreatePerformerAsync(newPerformer);
                 return Ok(newPerformer);
             }
             return NoContent();
+        }
+
+        /// <summary>
+        /// Возвращает исполнителя с заданным адресом.
+        /// </summary>
+        /// <param name="email">Адрес исполнителя.</param>
+        /// <returns></returns>
+        [HttpGet("{email}")]
+        public async Task<ActionResult<Performer?>> GetPerformer(string email)
+        {
+            var currentPerformer = await _performerRepository.GetPerformer(email);
+            return currentPerformer != null ? Ok(currentPerformer) : NoContent();
         }
     }
 }

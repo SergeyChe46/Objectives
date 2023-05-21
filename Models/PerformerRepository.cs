@@ -12,12 +12,21 @@ namespace Objectives.Models
             _context = context;
         }
 
+        /// <summary>
+        /// Создат нового исполнителя.
+        /// </summary>
+        /// <param name="performer">Параметры исполнителя.</param>
+        /// <returns></returns>
         public async Task CreatePerformerAsync(Performer performer)
         {
             await _context.Performers.AddAsync(performer);
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Возвращает всех исполнителей.
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Performer>> GetAllPerformers()
         {
             return await _context.Performers
@@ -35,6 +44,22 @@ namespace Objectives.Models
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Возвращает исполнителя с заданной почтой.
+        /// </summary>
+        /// <param name="email">Почта исполнителя.</param>
+        /// <returns></returns>
+        public async Task<Performer?> GetPerformer(string email)
+        {
+            return await _context.Performers
+                .AsQueryable()
+                .FirstOrDefaultAsync(perf => perf.Email == email);
+        }
+
+        /// <summary>
+        /// Возвращает свободных исполниетелей.
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Performer>> GetFreePerformers()
         {
             return await _context.Performers
