@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Objectives.Models;
+using Objectives.Models.Security;
 using Objectives.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,27 +25,28 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 );
 
 var jwtSettings = builder.Configuration.GetSection("JWTSettings");
-builder.Services
-    .AddAuthentication(opt =>
-    {
-        opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["validIssuer"],
-            ValidAudience = jwtSettings["validAudience"],
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtSettings.GetSection("securityKey").Value)
-            )
-        };
-    });
+
+// builder.Services
+//     .AddAuthentication(opt =>
+//     {
+//         opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//         opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//     })
+//     .AddJwtBearer(options =>
+//     {
+//         options.TokenValidationParameters = new TokenValidationParameters
+//         {
+//             ValidateIssuer = true,
+//             ValidateAudience = true,
+//             ValidateLifetime = true,
+//             ValidateIssuerSigningKey = true,
+//             ValidIssuer = jwtSettings["validIssuer"],
+//             ValidAudience = jwtSettings["validAudience"],
+//             IssuerSigningKey = new SymmetricSecurityKey(
+//                 Encoding.UTF8.GetBytes(jwtSettings.GetSection("securityKey").Value)
+//             )
+//         };
+//     });
 
 builder.Services.AddTransient<IObjectiveRepository, ObjectiveRepository>();
 builder.Services.AddTransient<IPerformerRepository, PerformerRepository>();
@@ -56,6 +58,9 @@ builder.Services.AddCors(c =>
         options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
     );
 });
+
+builder.Services.AddAuthentication();
+builder.Services.ConfigureIdentity();
 
 var app = builder.Build();
 
@@ -72,8 +77,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

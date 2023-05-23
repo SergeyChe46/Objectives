@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Objectives.Models
 {
-    public class Performer
+    [PrimaryKey(nameof(PerformerId), nameof(Email))]
+    public class Performer : IdentityUser
     {
-        [Key]
         public int PerformerId { get; set; }
 
         [EmailAddress]
