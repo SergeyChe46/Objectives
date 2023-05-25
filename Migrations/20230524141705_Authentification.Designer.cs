@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Objectives.Repositories;
@@ -11,9 +12,11 @@ using Objectives.Repositories;
 namespace Objectives.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230524141705_Authentification")]
+    partial class Authentification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,13 +53,13 @@ namespace Objectives.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9fd624a2-ce67-4587-a4c4-7cdfca158e3e",
+                            Id = "df3d73cb-1036-47f6-aa18-3d4be8b4e09a",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "71acf422-79d1-4ee1-ad09-d81b8a0d0c74",
+                            Id = "65756230-58d8-4769-b29f-3c6307e6dcf0",
                             Name = "Performer",
                             NormalizedName = "PERFORMER"
                         });
@@ -252,6 +255,9 @@ namespace Objectives.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -299,31 +305,31 @@ namespace Objectives.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "47503d39-8edd-45c3-965d-92d87e510039",
+                            Id = "ee70545c-b88e-441f-889e-24ca89e942e5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "65128738-8fd4-427f-b17b-12c2e53f8b24",
+                            ConcurrencyStamp = "e36eb816-313e-4c1e-a5dd-bd89ba53236a",
                             Email = "First@mail.ru",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            Name = "First Name",
                             PerformerId = 0,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5f0f07ba-eb36-4de6-8eb9-d37d761bcd5a",
-                            TwoFactorEnabled = false,
-                            UserName = "First Name"
+                            SecurityStamp = "29d438bd-3a66-4703-9792-549fb6170f75",
+                            TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "5fd0a15e-a53c-41f4-a2f3-7a6a980e506d",
+                            Id = "d79b1334-a17e-4225-9b37-70d1b572dade",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "58c07035-7c8c-41e6-a949-89a93847d31b",
+                            ConcurrencyStamp = "9227763e-5ce4-4c8c-98b0-3c064898ba87",
                             Email = "Second@mail.ru",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            Name = "Second Name",
                             PerformerId = 0,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5dbd9e61-5d43-4ddc-a162-814e9e758de2",
-                            TwoFactorEnabled = false,
-                            UserName = "Second Name"
+                            SecurityStamp = "71d089b8-ea84-43dd-a097-17814851440d",
+                            TwoFactorEnabled = false
                         });
                 });
 

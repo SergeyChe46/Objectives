@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 namespace Objectives.Models
 {
     [Index(nameof(Title), IsUnique = true)]
+    [PrimaryKey(nameof(ObjectiveId))]
     public class Objective
     {
-        [Key]
         public int ObjectiveId { get; set; }
 
         [Required]
@@ -14,8 +14,6 @@ namespace Objectives.Models
 
         [Required]
         public string Description { get; set; }
-
-        [Required]
         public string Priority { get; set; }
         public virtual List<Performer>? Performers { get; set; }
     }

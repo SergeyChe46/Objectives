@@ -50,7 +50,11 @@ namespace Objectives.Controllers
         {
             if (performer != null)
             {
-                var newPerformer = new Performer { Name = performer.Name, Email = performer.Email };
+                var newPerformer = new Performer
+                {
+                    UserName = performer.UserName,
+                    Email = performer.Email
+                };
                 await _performerRepository.CreatePerformerAsync(newPerformer);
                 return Ok(newPerformer);
             }
@@ -62,7 +66,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="email">Адрес исполнителя.</param>
         /// <returns></returns>
-        [HttpGet("{email:regex(^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{{2,4}$)}}")]
+        [HttpGet("{email:regex(^([[\\w\\.\\-]]+)@([[\\w\\-]]+)((\\.(\\w){{2,3}})+)$)}")]
         public async Task<ActionResult<Performer?>> GetPerformer(string email)
         {
             var currentPerformer = await _performerRepository.GetPerformer(email);

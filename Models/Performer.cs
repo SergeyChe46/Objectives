@@ -8,11 +8,7 @@ namespace Objectives.Models
     public class Performer : IdentityUser
     {
         public int PerformerId { get; set; }
-
-        [EmailAddress]
-        [Required]
-        public string Email { get; set; }
-        public string? Name { get; set; }
+        public string? Password { get; set; }
         public virtual List<Objective>? Objectives { get; set; }
     }
 }

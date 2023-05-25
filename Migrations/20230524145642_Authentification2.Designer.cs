@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Objectives.Repositories;
@@ -11,9 +12,11 @@ using Objectives.Repositories;
 namespace Objectives.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230524145642_Authentification2")]
+    partial class Authentification2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,13 +53,13 @@ namespace Objectives.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9fd624a2-ce67-4587-a4c4-7cdfca158e3e",
+                            Id = "99adf633-4af2-44db-890d-f73e8e68b680",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "71acf422-79d1-4ee1-ad09-d81b8a0d0c74",
+                            Id = "115556be-0374-481c-badc-0d4747cc7053",
                             Name = "Performer",
                             NormalizedName = "PERFORMER"
                         });
@@ -299,29 +302,29 @@ namespace Objectives.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "47503d39-8edd-45c3-965d-92d87e510039",
+                            Id = "0f8479d1-7da2-47b3-8d94-3a4f461cb7b8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "65128738-8fd4-427f-b17b-12c2e53f8b24",
+                            ConcurrencyStamp = "9d7109f5-884b-454a-ab08-cbb655396c3f",
                             Email = "First@mail.ru",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PerformerId = 0,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5f0f07ba-eb36-4de6-8eb9-d37d761bcd5a",
+                            SecurityStamp = "38bc68eb-51ec-49f8-9edb-9b4af803f0db",
                             TwoFactorEnabled = false,
                             UserName = "First Name"
                         },
                         new
                         {
-                            Id = "5fd0a15e-a53c-41f4-a2f3-7a6a980e506d",
+                            Id = "04e51ae3-1b3a-4b93-8721-59e34df26f23",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "58c07035-7c8c-41e6-a949-89a93847d31b",
+                            ConcurrencyStamp = "67d18e93-3967-4626-9dc2-8438ae4275b3",
                             Email = "Second@mail.ru",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PerformerId = 0,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5dbd9e61-5d43-4ddc-a162-814e9e758de2",
+                            SecurityStamp = "4a8447b9-f4aa-4d2f-b5dd-38720f986c1d",
                             TwoFactorEnabled = false,
                             UserName = "Second Name"
                         });

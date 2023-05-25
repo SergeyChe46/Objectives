@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Objectives.Repositories;
@@ -11,9 +12,11 @@ using Objectives.Repositories;
 namespace Objectives.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230523122953_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,13 +53,13 @@ namespace Objectives.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9fd624a2-ce67-4587-a4c4-7cdfca158e3e",
+                            Id = "98241ff5-f23f-47db-9bc9-ffec51fe0ad0",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "71acf422-79d1-4ee1-ad09-d81b8a0d0c74",
+                            Id = "5b86de9a-fef5-4cd3-883e-909224fd17a1",
                             Name = "Performer",
                             NormalizedName = "PERFORMER"
                         });
@@ -252,6 +255,9 @@ namespace Objectives.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -259,9 +265,6 @@ namespace Objectives.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -299,31 +302,31 @@ namespace Objectives.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "47503d39-8edd-45c3-965d-92d87e510039",
+                            Id = "6e920c08-ebb0-49f6-a3b9-730a6d300ce0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "65128738-8fd4-427f-b17b-12c2e53f8b24",
+                            ConcurrencyStamp = "25ae0e9c-fb31-4947-bb79-455c822f1358",
                             Email = "First@mail.ru",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            Name = "First Name",
                             PerformerId = 0,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5f0f07ba-eb36-4de6-8eb9-d37d761bcd5a",
-                            TwoFactorEnabled = false,
-                            UserName = "First Name"
+                            SecurityStamp = "6debabea-d896-404d-8990-8c65fca5d154",
+                            TwoFactorEnabled = false
                         },
                         new
                         {
-                            Id = "5fd0a15e-a53c-41f4-a2f3-7a6a980e506d",
+                            Id = "f409c2f8-23b6-48c2-aea0-a3282795aaad",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "58c07035-7c8c-41e6-a949-89a93847d31b",
+                            ConcurrencyStamp = "29704946-dba9-4def-a6b6-96919d355034",
                             Email = "Second@mail.ru",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            Name = "Second Name",
                             PerformerId = 0,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5dbd9e61-5d43-4ddc-a162-814e9e758de2",
-                            TwoFactorEnabled = false,
-                            UserName = "Second Name"
+                            SecurityStamp = "a449689e-a4e6-4fc9-bf70-9bb855d65bcd",
+                            TwoFactorEnabled = false
                         });
                 });
 

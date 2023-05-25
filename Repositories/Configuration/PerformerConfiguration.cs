@@ -13,8 +13,8 @@ namespace Objectives.Repositories.Configuration
         public void Configure(EntityTypeBuilder<Performer> builder)
         {
             builder.HasData(
-                new Performer { Email = "First@mail.ru", Name = "First Name" },
-                new Performer { Email = "Second@mail.ru", Name = "Second Name" }
+                new Performer { Email = "First@mail.ru", UserName = "First Name" },
+                new Performer { Email = "Second@mail.ru", UserName = "Second Name" }
             );
         }
     }

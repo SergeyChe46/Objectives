@@ -10,6 +10,7 @@ namespace Objectives.Repositories.Configuration
 {
     public class RoleConfiguration : IEntityTypeConfiguration<IdentityRole>
     {
+        // Роли по умолчанию.
         public void Configure(EntityTypeBuilder<IdentityRole> builder)
         {
             builder.HasData(

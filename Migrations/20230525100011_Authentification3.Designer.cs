@@ -12,8 +12,8 @@ using Objectives.Repositories;
 namespace Objectives.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230523120712_Initial")]
-    partial class Initial
+    [Migration("20230525100011_Authentification3")]
+    partial class Authentification3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,20 @@ namespace Objectives.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "9fd624a2-ce67-4587-a4c4-7cdfca158e3e",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "71acf422-79d1-4ee1-ad09-d81b8a0d0c74",
+                            Name = "Performer",
+                            NormalizedName = "PERFORMER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -198,6 +212,22 @@ namespace Objectives.Migrations
                         .IsUnique();
 
                     b.ToTable("Objectives");
+
+                    b.HasData(
+                        new
+                        {
+                            ObjectiveId = 1,
+                            Description = "First description",
+                            Priority = "High",
+                            Title = "First title"
+                        },
+                        new
+                        {
+                            ObjectiveId = 2,
+                            Description = "Second description",
+                            Priority = "Low",
+                            Title = "Second title"
+                        });
                 });
 
             modelBuilder.Entity("Objectives.Models.Performer", b =>
@@ -225,9 +255,6 @@ namespace Objectives.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -235,6 +262,9 @@ namespace Objectives.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -268,6 +298,36 @@ namespace Objectives.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "47503d39-8edd-45c3-965d-92d87e510039",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "65128738-8fd4-427f-b17b-12c2e53f8b24",
+                            Email = "First@mail.ru",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PerformerId = 0,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5f0f07ba-eb36-4de6-8eb9-d37d761bcd5a",
+                            TwoFactorEnabled = false,
+                            UserName = "First Name"
+                        },
+                        new
+                        {
+                            Id = "5fd0a15e-a53c-41f4-a2f3-7a6a980e506d",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "58c07035-7c8c-41e6-a949-89a93847d31b",
+                            Email = "Second@mail.ru",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PerformerId = 0,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5dbd9e61-5d43-4ddc-a162-814e9e758de2",
+                            TwoFactorEnabled = false,
+                            UserName = "Second Name"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

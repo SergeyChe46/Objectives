@@ -10,11 +10,24 @@ namespace Objectives.Repositories.Configuration
 {
     public class ObjectiveConfiguration : IEntityTypeConfiguration<Objective>
     {
+        // Данные по умолчанию.
         public void Configure(EntityTypeBuilder<Objective> builder)
         {
             builder.HasData(
-                new Objective { Title = "First title", Description = "First description" },
-                new Objective { Title = "Second title", Description = "Second description" }
+                new Objective
+                {
+                    ObjectiveId = 1,
+                    Title = "First title",
+                    Description = "First description",
+                    Priority = "High"
+                },
+                new Objective
+                {
+                    ObjectiveId = 2,
+                    Title = "Second title",
+                    Description = "Second description",
+                    Priority = "Low"
+                }
             );
         }
     }
