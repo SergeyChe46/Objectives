@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ObjectiveService } from '../objective-service.service';
 import { Objective } from '../objective.interface';
@@ -37,7 +37,9 @@ export class CreateObjectiveComponent {
  */
   postObjective(newObjective: Objective): void {
     this._objService.postObjective(newObjective)
-      .subscribe(res => alert(res.description));
-    console.log(newObjective);
+      .subscribe(() => this.objectiveWasAddedChange.emit());
   }
+
+  @Output() objectiveWasAddedChange = new EventEmitter();
+
 }

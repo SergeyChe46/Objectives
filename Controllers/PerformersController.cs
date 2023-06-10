@@ -5,7 +5,7 @@ using Objectives.Models.ViewModels;
 
 namespace Objectives.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class PerformersController : ControllerBase
     {
@@ -22,7 +22,7 @@ namespace Objectives.Controllers
         /// Возвращает всех исполнителей.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("allPerfs")]
+        [HttpGet]
         public async Task<ActionResult<List<Performer>>> GetAll()
         {
             var performers = await _performerRepository.GetAllPerformers();
@@ -33,7 +33,7 @@ namespace Objectives.Controllers
         /// Возвращает свободных исполнителей.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("freePerfs")]
+        [HttpGet("/free")]
         public async Task<ActionResult<List<Performer>>> GetFreePerformers()
         {
             var performers = await _performerRepository.GetFreePerformers();
@@ -45,16 +45,16 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="performer">Данные нового исполнителя.</param>
         /// <returns></returns>
-        [HttpPost("createPerfs")]
-        public async Task<ActionResult<Performer>> Create(PerformerViewModel performer)
+        [HttpPost("/create")]
+        public async Task<ActionResult<Performer>> Create([FromBody] PerformerViewModel performer)
         {
             if (performer != null)
             {
                 var newPerformer = new Performer { Name = performer.Name, Email = performer.Email };
                 await _performerRepository.CreatePerformerAsync(newPerformer);
-                return Ok(newPerformer);
+                return CreatedAtAction(nameof(Create), newPerformer);
             }
-            return NoContent();
+            return BadRequest();
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="email">Адрес исполнителя.</param>
         /// <returns></returns>
-        [HttpGet("{email:regex(^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{{2,4}$)}}")]
+        [HttpGet("/{email:alpha}")]
         public async Task<ActionResult<Performer?>> GetPerformer(string email)
         {
             var currentPerformer = await _performerRepository.GetPerformer(email);

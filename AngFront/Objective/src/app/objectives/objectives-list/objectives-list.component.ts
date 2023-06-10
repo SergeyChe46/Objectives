@@ -9,6 +9,8 @@ import { Objective } from '../objective.interface';
 export class ObjectivesListComponent implements OnInit {
   constructor(private objService: ObjectiveService){}
 
+  @Input() objectiveWasAdded: any;// = this.loadObjectives();
+
   objectives: Objective[] = [];
   thisObjective: Objective | undefined;
   ngOnInit(){

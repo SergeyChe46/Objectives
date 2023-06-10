@@ -53,6 +53,7 @@ namespace Objectives.Models
         {
             return await _context.Performers
                 .AsQueryable()
+                .Where(p => p.Email == email)
                 .Include(p => p.Objectives)
                 .Select(
                     p =>
@@ -64,7 +65,7 @@ namespace Objectives.Models
                             Objectives = p.Objectives!.ToList()
                         }
                 )
-                .FirstOrDefaultAsync(perf => perf.Email == email);
+                .FirstOrDefaultAsync();
         }
 
         /// <summary>

@@ -19,6 +19,6 @@
         </tr>
       </tbody>
   </table>
-  <app-create-objective></app-create-objective>
+  <app-create-objective (objectiveWasAddedChange)="loadObjectives()"></app-create-objective>
   <app-objective-detail [currentObjective]="thisObjective"></app-objective-detail>
 </div>
