@@ -28,7 +28,7 @@ namespace Objectives.Models
                     o =>
                         new Objective
                         {
-                            ObjectiveId = o.ObjectiveId,
+                            Id = o.Id,
                             Title = o.Title,
                             Description = o.Description,
                             Priority = o.Priority,
@@ -66,14 +66,14 @@ namespace Objectives.Models
         /// <param name="objectiveId">Id задачи.</param>
         /// <param name="performerId">Id исполнителя.</param>
         /// <returns></returns>
-        public async Task StartObjectiveAsync(int objectiveId, int performerId)
+        public async Task StartObjectiveAsync(Guid objectiveId, Guid performerId)
         {
             var obj = await _context.Objectives
                 .Include(p => p.Performers)
-                .SingleOrDefaultAsync(obj => obj.ObjectiveId == objectiveId);
+                .SingleOrDefaultAsync(obj => obj.Id == objectiveId);
 
             var perf = await _context.Performers
-                .FirstOrDefaultAsync(p => p.PerformerId == performerId);
+                .FirstOrDefaultAsync(p => p.Id == performerId);
 
             if (obj != null && perf != null)
             {
@@ -87,7 +87,7 @@ namespace Objectives.Models
         /// </summary>
         /// <param name="objectiveId"></param>
         /// <returns></returns>
-        public async Task<Objective?> GetObjectiveAsync(int objectiveId)
+        public async Task<Objective?> GetObjectiveAsync(Guid objectiveId)
         {
             return await _context.Objectives.FindAsync(objectiveId);
         }

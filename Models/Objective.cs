@@ -7,7 +7,7 @@ namespace Objectives.Models
     public class Objective
     {
         [Key]
-        public int ObjectiveId { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string Title { get; set; }

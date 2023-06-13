@@ -35,7 +35,7 @@ namespace Objectives.Models
                     obj =>
                         new Performer
                         {
-                            PerformerId = obj.PerformerId,
+                            Id = obj.Id,
                             Email = obj.Email,
                             Name = obj.Name,
                             Objectives = obj.Objectives!.ToList()
@@ -59,7 +59,7 @@ namespace Objectives.Models
                     p =>
                         new Performer
                         {
-                            PerformerId = p.PerformerId,
+                            Id = p.Id,
                             Email = p.Email,
                             Name = p.Name,
                             Objectives = p.Objectives!.ToList()

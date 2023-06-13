@@ -47,7 +47,7 @@ namespace Objectives.Controllers
         /// <param name="id">Id задачи.</param>
         /// <returns></returns>
         [HttpGet("objective/{id:int}")]
-        public async Task<IActionResult> GetObjective(int id)
+        public async Task<IActionResult> GetObjective(Guid id)
         {
             var objective = await _objectivesRepository.GetObjectiveAsync(id);
             return objective != null ? Ok(objective) : NoContent();
@@ -82,7 +82,7 @@ namespace Objectives.Controllers
         /// <param name="performerId">Id исполнителя.</param>
         /// <returns></returns>
         [HttpPatch("start")]
-        public async Task<IActionResult> StartObjective(int objectiveId, int performerId)
+        public async Task<IActionResult> StartObjective(Guid objectiveId, Guid performerId)
         {
             await _objectivesRepository.StartObjectiveAsync(objectiveId, performerId);
             return Ok();

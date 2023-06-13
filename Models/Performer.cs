@@ -5,7 +5,7 @@ namespace Objectives.Models
     public class Performer
     {
         [Key]
-        public int PerformerId { get; set; }
+        public Guid Id { get; set; }
 
         [EmailAddress]
         [Required]
