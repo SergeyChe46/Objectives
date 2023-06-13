@@ -18,9 +18,11 @@ namespace Objectives.Models
         /// Возвращает все доступные задачи.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Objective>> GetObjectivesAsync()
+        public async Task<List<Objective>> GetObjectivesAsync(int page, int numOfEntities)
         {
             return await _context.Objectives
+                .Skip((page - 1) * numOfEntities)
+                .Take(numOfEntities)
                 .Include(p => p.Performers)
                 .Select(
                     o =>
@@ -68,11 +70,10 @@ namespace Objectives.Models
         {
             var obj = await _context.Objectives
                 .Include(p => p.Performers)
-                .FirstOrDefaultAsync(o => o.ObjectiveId == objectiveId);
+                .SingleOrDefaultAsync(obj => obj.ObjectiveId == objectiveId);
 
-            var perf = await _context.Performers.FirstOrDefaultAsync(
-                p => p.PerformerId == performerId
-            );
+            var perf = await _context.Performers
+                .FirstOrDefaultAsync(p => p.PerformerId == performerId);
 
             if (obj != null && perf != null)
             {

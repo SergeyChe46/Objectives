@@ -5,7 +5,7 @@ using Objectives.Models.ViewModels;
 
 namespace Objectives.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ObjectivesController : ControllerBase
     {
@@ -23,7 +23,7 @@ namespace Objectives.Controllers
         /// </summary>
         /// <param name="newObjective">Новая задача.</param>
         /// <returns></returns>
-        [HttpPost("createObjective")]
+        [HttpPost]
         public async Task<IActionResult> Create(ObjectiveViewModel newObjective)
         {
             if (newObjective != null)
@@ -57,10 +57,10 @@ namespace Objectives.Controllers
         /// Возвращает все задачи.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("all")]
-        public async Task<ActionResult<List<Objective>>> GetObjectives()
+        [HttpGet]
+        public async Task<ActionResult<List<Objective>>> GetObjectives([FromRoute]int page = 1, [FromRoute]int pageCapacity = 5)
         {
-            return await _objectivesRepository.GetObjectivesAsync();
+            return await _objectivesRepository.GetObjectivesAsync(page, pageCapacity);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Objectives.Controllers
         /// <param name="objectiveId">Id задачи.</param>
         /// <param name="performerId">Id исполнителя.</param>
         /// <returns></returns>
-        [HttpPatch("take")]
+        [HttpPatch("start")]
         public async Task<IActionResult> StartObjective(int objectiveId, int performerId)
         {
             await _objectivesRepository.StartObjectiveAsync(objectiveId, performerId);

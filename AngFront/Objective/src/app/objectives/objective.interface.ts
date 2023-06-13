@@ -1,4 +1,4 @@
-import { Performers } from "./performers.interface";
+import { Performers } from "../performers/performers.interface";
 
 export interface Objective {
     objectiveId: number,

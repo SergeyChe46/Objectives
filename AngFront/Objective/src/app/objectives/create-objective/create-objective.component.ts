@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ObjectiveService } from '../objective-service.service';
 import { Objective } from '../objective.interface';
+import { ObjectiveService } from '../objective.service';
 
 @Component({
   selector: 'app-create-objective',
   templateUrl: './create-objective.component.html',
 })
 export class CreateObjectiveComponent {
-  constructor(private _objService: ObjectiveService){
+  constructor(private service: ObjectiveService) {
     this.objectiveForm = new FormGroup({               
       title: new FormControl('', [Validators.required, Validators.minLength(5)]),
       description: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -36,10 +36,12 @@ export class CreateObjectiveComponent {
  * @param newObjective Значения задачи из формы.
  */
   postObjective(newObjective: Objective): void {
-    this._objService.postObjective(newObjective)
-      .subscribe(() => this.objectiveWasAddedChange.emit());
+    this.service.post(newObjective)
+      .subscribe(
+        () => this.objectiveWasAddedChange.emit()
+      );
+    this.objectiveForm.reset();
   }
 
   @Output() objectiveWasAddedChange = new EventEmitter();
-
 }
