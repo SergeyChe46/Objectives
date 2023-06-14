@@ -15,7 +15,7 @@ export class ObjectiveService implements ServiceOf<Objective> {
   getAll(page: number | undefined, pageCapcity: number | undefined): Observable<Objective[]> {
     return this.http.get<Objective[]>(this.baseUrl);
   }
-  getOne(id: number): Observable<Objective> {
+  getOne(id: string): Observable<Objective> {
     return this.http.get<Objective>(this.baseUrl + 'objective/' + id);
   }
   post(created: Objective): Observable<Objective> {

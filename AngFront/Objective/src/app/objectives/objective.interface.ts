@@ -1,7 +1,7 @@
 import { Performers } from "../performers/performers.interface";
 
 export interface Objective {
-    objectiveId: number,
+    objectiveId: string,
     title: string,
     description: string,
     priority: string,

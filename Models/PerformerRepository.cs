@@ -13,17 +13,6 @@ namespace Objectives.Models
         }
 
         /// <summary>
-        /// Создат нового исполнителя.
-        /// </summary>
-        /// <param name="performer">Параметры исполнителя.</param>
-        /// <returns></returns>
-        public async Task CreatePerformerAsync(Performer performer)
-        {
-            await _context.Performers.AddAsync(performer);
-            await _context.SaveChangesAsync();
-        }
-
-        /// <summary>
         /// Возвращает всех исполнителей.
         /// </summary>
         /// <returns></returns>
@@ -37,7 +26,6 @@ namespace Objectives.Models
                         {
                             Id = obj.Id,
                             Email = obj.Email,
-                            Name = obj.Name,
                             Objectives = obj.Objectives!.ToList()
                         }
                 )
@@ -61,7 +49,6 @@ namespace Objectives.Models
                         {
                             Id = p.Id,
                             Email = p.Email,
-                            Name = p.Name,
                             Objectives = p.Objectives!.ToList()
                         }
                 )

@@ -6,4 +6,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Objective';
+
+  isUserAuthenticated = (): boolean => {
+    return false
+  }
+
+  logOut = () => {
+    localStorage.removeItem("jwt");
+  }
 }

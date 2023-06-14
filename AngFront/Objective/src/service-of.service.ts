@@ -14,7 +14,7 @@ export interface ServiceOf<T> {
    * @param id Id @type {T}
    * @returns @type {T} с Id.
    */
-  getOne(id: number): Observable<T>;
+  getOne(id: string): Observable<T>;
   /**
    * Создаёт @type {T} в базе данных.
    * @param newObjective @type {T} полученная из формы.

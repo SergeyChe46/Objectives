@@ -30,7 +30,7 @@ export class PerformerCardComponent implements OnInit {
         email: "Performer not found",
         name: "Performer not found",
         objectives: [],
-        performerId: 0
+        performerId: ''
       }
     }
   }

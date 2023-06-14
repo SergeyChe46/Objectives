@@ -18,24 +18,9 @@ namespace Objectives.Models
         /// Возвращает все доступные задачи.
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Objective>> GetObjectivesAsync(int page, int numOfEntities)
+        public async Task<IEnumerable<Objective>> GetObjectivesAsync()
         {
-            return await _context.Objectives
-                .Skip((page - 1) * numOfEntities)
-                .Take(numOfEntities)
-                .Include(p => p.Performers)
-                .Select(
-                    o =>
-                        new Objective
-                        {
-                            Id = o.Id,
-                            Title = o.Title,
-                            Description = o.Description,
-                            Priority = o.Priority,
-                            Performers = o.Performers!.ToList()
-                        }
-                )
-                .ToListAsync();
+            return await _context.Objectives.ToListAsync();
         }
 
         /// <summary>
@@ -45,6 +30,7 @@ namespace Objectives.Models
         /// <returns></returns>
         public async Task CreateObjectiveAsync(Objective objective)
         {
+            objective.Id = Guid.NewGuid();
             _context.Objectives.Add(objective);
             await _context.SaveChangesAsync();
         }

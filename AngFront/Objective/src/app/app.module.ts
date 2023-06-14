@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerformersListComponent } from './performers/performers-list/performers-list.component';
 import { PerformersDetailComponent } from './performers/performers-detail/performers-detail.component';
 import { PerformerCardComponent } from './performers/performer-card/performer-card.component';
+import { LoginComponent } from './performers/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +21,7 @@ import { PerformerCardComponent } from './performers/performer-card/performer-ca
     PerformersListComponent,
     PerformersDetailComponent,
     PerformerCardComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

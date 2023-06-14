@@ -1,16 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace Objectives.Models
 {
-    public class Performer
+    public class Performer : IdentityUser
     {
         [Key]
-        public Guid Id { get; set; }
-
-        [EmailAddress]
-        [Required]
-        public string Email { get; set; }
-        public string? Name { get; set; }
+        public new Guid Id { get; set; }
         public virtual List<Objective>? Objectives { get; set; }
     }
 }

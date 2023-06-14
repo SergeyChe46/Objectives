@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using NLog;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Objectives.Models;
 using Objectives.Models.ViewModels;
+using Serilog;
 
 namespace Objectives.Controllers
 {
@@ -9,13 +10,13 @@ namespace Objectives.Controllers
     [ApiController]
     public class ObjectivesController : ControllerBase
     {
-        private readonly NLog.ILogger logger;
+        private readonly Serilog.ILogger _logger;
         private IObjectiveRepository _objectivesRepository;
 
         public ObjectivesController(IObjectiveRepository objectiveRepository)
         {
             _objectivesRepository = objectiveRepository;
-            this.logger = LogManager.GetCurrentClassLogger();
+            _logger = Log.Logger;
         }
 
         /// <summary>
@@ -24,6 +25,7 @@ namespace Objectives.Controllers
         /// <param name="newObjective">Новая задача.</param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Create(ObjectiveViewModel newObjective)
         {
             if (newObjective != null)
@@ -35,10 +37,10 @@ namespace Objectives.Controllers
                     Priority = newObjective.Priority
                 };
                 await _objectivesRepository.CreateObjectiveAsync(objective);
+                _logger.Information("Objective {objId} was created", objective.Id);
                 return Ok(objective);
             }
-            logger.Trace($"Wrong objective - {newObjective}");
-            return NoContent();
+            return BadRequest();
         }
 
         /// <summary>
@@ -58,9 +60,10 @@ namespace Objectives.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<List<Objective>>> GetObjectives([FromRoute]int page = 1, [FromRoute]int pageCapacity = 5)
+        public async Task<IEnumerable<Objective>> GetObjectives()
         {
-            return await _objectivesRepository.GetObjectivesAsync(page, pageCapacity);
+            Log.Debug("Objectives done");
+            return await _objectivesRepository.GetObjectivesAsync();
         }
 
         /// <summary>
