@@ -36,7 +36,7 @@ namespace Objectives.Authentication
         public async Task<bool> Authenticate(PerformerAuthentication performerAuthentication)
         {
             _performer = await _userManager.FindByNameAsync(performerAuthentication.Name);
-            var result = 
+            var result =
                 _performer != null &&
                 await _userManager.CheckPasswordAsync(_performer, performerAuthentication.Password);
             // Добавить логирование

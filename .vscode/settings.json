@@ -4,5 +4,17 @@
         "**/.vscode": true,
         "bin": true,
         "obj": true
-    }
+    },
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "posgtres",
+            "database": "my_project",
+            "username": "postgres",
+            "password": ""
+        }
+    ]
 }

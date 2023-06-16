@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Objectives.Helpers.Logger;
 using Objectives.Models;
 using Objectives.Models.ViewModels;
-using Serilog;
 
 namespace Objectives.Controllers
 {
@@ -10,13 +10,13 @@ namespace Objectives.Controllers
     [ApiController]
     public class ObjectivesController : ControllerBase
     {
-        private readonly Serilog.ILogger _logger;
+        private readonly ILoggerManager _logger;
         private IObjectiveRepository _objectivesRepository;
 
-        public ObjectivesController(IObjectiveRepository objectiveRepository)
+        public ObjectivesController(IObjectiveRepository objectiveRepository, ILoggerManager logger)
         {
             _objectivesRepository = objectiveRepository;
-            _logger = Log.Logger;
+            _logger = logger;
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Objectives.Controllers
                     Priority = newObjective.Priority
                 };
                 await _objectivesRepository.CreateObjectiveAsync(objective);
-                _logger.Information("Objective {objId} was created", objective.Id);
+                _logger.LogInfo("Created");
                 return Ok(objective);
             }
             return BadRequest();
@@ -62,7 +62,9 @@ namespace Objectives.Controllers
         [HttpGet]
         public async Task<IEnumerable<Objective>> GetObjectives()
         {
-            Log.Debug("Objectives done");
+            _logger.LogInfo("Get all Info");
+            _logger.LogDebug("Get all Debug");
+            _logger.LogError("Get all Error");
             return await _objectivesRepository.GetObjectivesAsync();
         }
 

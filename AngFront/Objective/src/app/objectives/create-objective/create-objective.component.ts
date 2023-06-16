@@ -1,14 +1,16 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Objective } from '../objective.interface';
 import { ObjectiveService } from '../objective.service';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-objective',
   templateUrl: './create-objective.component.html',
 })
-export class CreateObjectiveComponent {
-  constructor(private service: ObjectiveService) {
+export class CreateObjectiveComponent implements OnInit {
+  customers: any;
+  constructor(private http: HttpClient, private service: ObjectiveService) {
     this.objectiveForm = new FormGroup({               
       title: new FormControl('', [Validators.required, Validators.minLength(5)]),
       description: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -16,6 +18,14 @@ export class CreateObjectiveComponent {
     });
     // Устанавливает выбранный из дропдауна приоритет. 
     this.objectiveForm.controls['priority'].setValue(this.selectedPrior, {onlySelf: true});
+  }
+
+  ngOnInit(): void {
+    this.http.get('http://localhost:5292/objectives/create')
+    .subscribe({
+      next: (result: any) => this.customers = result,
+      error: (err: HttpErrorResponse) => console.log(err)
+    })
   }
   // Форма создания задач.
   objectiveForm: FormGroup;

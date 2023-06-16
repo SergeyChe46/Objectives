@@ -1,13 +1,13 @@
+using NLog;
 using Objectives.Services;
-using Serilog;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-var configuration = builder.Configuration;
 
-Log.Logger = new LoggerConfiguration()
-        .ReadFrom.Configuration(configuration.GetSection("Serilog"))
-        .CreateLogger();
+LogManager.Setup()
+    .LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+
+var configuration = builder.Configuration;
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -17,8 +17,12 @@
           <li *ngIf="isUserAuthenticated()" class="nav-item" [routerLinkActive]="['active']">
               <a class="nav-link" [routerLink]="['/performers']">Исполнители</a>
           </li>
-          <li *ngIf="!isUserAuthenticated()"><a routerLink="/login">Login</a></li>
-          <li *ngIf="isUserAuthenticated()"><a class="logout" (click)="logOut()">Log out</a></li>
+          <li *ngIf="!isUserAuthenticated()" class="nav-item">
+            <a [routerLink]="['/login']" class="nav-link">Login</a>
+          </li>
+          <li *ngIf="isUserAuthenticated()" class="nav-item">
+            <a class="logout" (click)="logOut()" class="nav-link">Log out</a>
+          </li>
 
       </ul>
     <router-outlet></router-outlet>

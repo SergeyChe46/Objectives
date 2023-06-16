@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Objectives.Authentication;
+using Objectives.Helpers.Logger;
 using Objectives.Models;
 using Objectives.Repositories;
 using System.Text;
@@ -46,7 +47,7 @@ namespace Objectives.Services
         {
             services.AddScoped<IObjectiveRepository, ObjectiveRepository>();
             services.AddScoped<IPerformerRepository, PerformerRepository>();
-            //services.AddScoped<AuthenticationService>();
+            services.AddSingleton<ILoggerManager, LoggerManager>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
         }
 
